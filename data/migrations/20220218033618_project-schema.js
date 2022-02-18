@@ -1,9 +1,9 @@
 exports.up = function (knex) {
     return knex.schema
-      .createTable("project", (proj) => {
+      .createTable("projects", (proj) => {
         proj.increments("project_id").primary();
         proj.string("project_name", 256).notNullable();
-        proj.string("project_description")
+        proj.string("project_description", 255)
         proj.integer("project_completed").defaultTo(0)
 
 
@@ -12,7 +12,7 @@ exports.up = function (knex) {
 //   - [ ] `project_description` - optional
 //   - [ ] `project_completed` - the database defaults it to `false` (integer 0) if not provided
       })
-      .createTable("resource", (res) => {
+      .createTable("resources", (res) => {
         res.increments("resource_id").primary()
 
         res.string("resource_name").unique().notNullable()
@@ -23,12 +23,12 @@ exports.up = function (knex) {
 //   - [ ] `resource_name` - required and unique
 //   - [ ] `resource_description` - optional
       })
-      .createTable("task", (task) => {
+      .createTable("tasks", (task) => {
           task.increments("task_id").primary()
           task.string("task_description").notNullable()
           task.string("task_notes");
           task.integer("task_completed").defaultTo(0)
-          task.integer("project_id").notNullable().references('project_id').inTable('project')
+          task.integer("project_id").notNullable().references('project_id').inTable('projects')
 
           
 //   - [ ] `task_id` - primary key
@@ -42,14 +42,14 @@ exports.up = function (knex) {
         .unsigned()
         .notNullable()
         .references('project_id')
-        .inTable('project')
+        .inTable('projects')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
         proRes.integer('resource_id')
         .unsigned()
         .notNullable()
         .references('resource_id')
-        .inTable('resource')
+        .inTable('resources')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
       proRes.primary(['project_id', 'resource_id'])
@@ -62,9 +62,9 @@ exports.up = function (knex) {
   exports.down = function (knex) {
     return knex.schema
       .dropTableIfExists("project_resources")
-      .dropTableIfExists("task")
-      .dropTableIfExists("resource")
-      .dropTableIfExists("project")
+      .dropTableIfExists("tasks")
+      .dropTableIfExists("resources")
+      .dropTableIfExists("projects")
   };
   
 //   - [ ] A **project** is what needs to be done and is stored in a `projects` table with the following columns:

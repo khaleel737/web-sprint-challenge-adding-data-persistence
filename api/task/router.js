@@ -1,20 +1,20 @@
 // build your `/api/tasks` router here
-// build your `/api/resources` router here
-// build your `/api/projects` router here
 const express = require('express')
 const router = express.Router()
-const Projects = require('./model')
+const Tasks = require('./model')
 
 
 router.get('/', async (req, res) => {
-    const allProjects = await Projects.get();
+    const allTasks = await Tasks.getTask();
 
-    res.json(allProjects)
+    res.json(allTasks)
 })
 
 router.post('/', async (req, res) => {
-    const insertProject = await Projects.createProject(req.body)
+    const insertProject = await Tasks.createTask(req.body)
 
     res.json(insertProject)
 })
+
+
 module.exports = router;
