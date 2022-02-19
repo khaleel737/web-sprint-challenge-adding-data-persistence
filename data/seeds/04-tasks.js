@@ -12,4 +12,3 @@ const tasks = [
     return knex('tasks').insert(tasks)
   }
   
-

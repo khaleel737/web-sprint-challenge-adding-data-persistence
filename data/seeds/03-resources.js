@@ -10,8 +10,3 @@ const resources = [
   exports.seed = function (knex) {
     return knex('resources').insert(resources)
   }
-  
-
-//   - [ ] `resource_id` - primary key
-//   - [ ] `resource_name` - required and unique
-//   - [ ] `resource_description` - optional

@@ -4,24 +4,29 @@ const router = express.Router()
 const Tasks = require('./model')
 
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
+    try {
     const allTasks = await Tasks.getTask();
-    // req.body.project_completed === 1 ? true : false
-
     res.json(allTasks)
+    }catch (err) {
+        next(err)
+    }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
+    try {
     const insertTask = await Tasks.createTask(req.body)
-
-    res.status(201).json({
-        status: 201, 
-        task_id: insertTask.task_id,
-        task_description: insertTask.task_description,
-        task_notes: insertTask.task_notes,
-        task_completed: Boolean(insertTask.task_completed),
-        project_id: insertTask.project_id  
-     })
+        res.status(201).json({
+            status: 201, 
+            task_id: insertTask.task_id,
+            task_description: insertTask.task_description,
+            task_notes: insertTask.task_notes,
+            task_completed: Boolean(insertTask.task_completed),
+            project_id: insertTask.project_id  
+        })
+    } catch (err) {
+        next(err)
+    }
 })
 
 router.use((err, req, res, next) => {

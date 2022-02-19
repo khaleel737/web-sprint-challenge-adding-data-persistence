@@ -7,14 +7,6 @@ async function getTask() {
  .leftJoin('projects as pj', 'pj.project_id', '=' ,'ts.project_id')
   .select('ts.*', 'pj.project_name', 'pj.project_description')
 
-//  .where('pj.project_id', 'ts.project_id')
-
-//  db('schemes as sc')
-//  .leftJoin('steps as st', 'sc.scheme_id', 'st.scheme_id')
-//  .where('sc.scheme_id', scheme_id)
-//  .select('ts.*', 'pj.project_name', 'pj.project_')
-//  .orderBy('st.step_number', 'asc')
-
     let finalTasks = [];
 
     tasks.forEach(task => {
@@ -30,13 +22,6 @@ async function getTask() {
       }
 
       finalTasks.push(taskResolved)
-
-    //   - [ ] `task_id` - primary key
-    //   - [ ] `task_description` - required
-    //   - [ ] `task_notes` - optional
-    //   - [ ] `task_completed` - the database defaults it to `false` (integer 0) if not provided
-    //   - [ ] `project_id` - required and points to an actual `project_id` in the `projects` table
-      
     })
 
     return finalTasks;

@@ -11,8 +11,3 @@ const projects = [
     return knex('projects').insert(projects)
   }
   
-
-//   - [ ] `project_id` - primary key
-//   - [ ] `project_name` - required
-//   - [ ] `project_description` - optional
-//   - [ ] `project_completed` - the database defaults it to `false` (integer 0) if not provided
