@@ -1,14 +1,14 @@
 // DO NOT CHANGE THIS FILE
-const project_resources = [
-    { project_id: 2, resource_id: 2 },
-    { project_id: 2, resource_id: 1 },
-    { project_id: 1, resource_id: 3 },
+const project_resource = [
+    { project_id: '', resource_id: '' },
+    { project_id: '', resource_id: '' },
+    { project_id: '', resource_id: '' }
 
   ]
   
-  exports.project_resources = project_resources
+  exports.project_resource = project_resource
   
   exports.seed = function (knex) {
-    return knex('project_resources').insert(project_resources)
+    return knex('project_resources').insert(project_resource)
   }
   

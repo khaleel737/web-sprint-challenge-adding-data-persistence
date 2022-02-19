@@ -1,15 +1,30 @@
 const db = require("../../data/dbConfig");
+const { router } = require("../server");
 
 
-function getProject() {
-  return db("projects")
+async function getProject() {
+  
+    const projects = await db("projects")
+
+    let finalProject = [];
+
+    projects.forEach(project => {
+
+      const projectResolved = {
+        project_id: project.project_id,
+        project_name: project.project_name,
+        project_description: project.project_description,
+        project_completed: Boolean(project.project_completed)
+      }
+
+      finalProject.push(projectResolved)
+      
+    })
+
+    return finalProject;
 }
 
-function findById(id) {
-  return db("projects")
-    .where({ id })
-    .first();
-}
+
 
 // async function add(hub) {
 //   const [id] = await db('hubs').insert(hub);
@@ -18,13 +33,12 @@ function findById(id) {
 // }
 
 
-function createProject(project) {
-  return db("projects").insert(project);
-  // return findById(project_id);
-  // return getAnimals().where({ project_id }).first();
+ async function createProject(project) {
+const insertProject = await db('projects').insert(project)
+return db('projects').where('project_id', insertProject).first() 
 }
+
 
 module.exports = { 
   getProject,
-  findById,
   createProject };
